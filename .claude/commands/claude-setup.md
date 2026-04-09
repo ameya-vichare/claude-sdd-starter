@@ -42,7 +42,7 @@ Before asking anything, scan the project silently:
    - 20–200 → early-stage
    - 200+ → established
 
-4. **Existing config**: check for `.claude/`, `CLAUDE.md`, linter configs, CI configs, test directories, `.gitignore`
+4. **Existing config**: check for `.claude/`, `CLAUDE.md`, linter configs, CI configs, test directories, `.gitignore`. **Do NOT read `README.md`** — in this starter kit it describes the template, not the user's project.
 5. **Git state**: is this a git repo? Existing branches?
 
 Present findings to the user:
@@ -60,7 +60,7 @@ Here's what I found:
 
 ## Phase 1 — Clarifying Questions
 
-Ask in a **single batch** — don't drip-feed. Skip questions where discovery already answered them. Adapt wording to the detected platform.
+Ask questions **one at a time** — wait for each answer before asking the next. Skip questions where discovery already answered them. Adapt wording to the detected platform.
 
 ### Always ask:
 1. **"What is this project?"** — 2-3 sentence description of the product/service
@@ -114,7 +114,7 @@ Ask in a **single batch** — don't drip-feed. Skip questions where discovery al
      - C/C++ → header/source separation, PIMPL for encapsulation, no global mutable state
      - Zig → comptime-driven generics, explicit allocators, no hidden control flow
 
-Wait for ALL answers. Summarize understanding and confirm before proceeding.
+After all questions are answered, summarize understanding and confirm before proceeding.
 
 ---
 
