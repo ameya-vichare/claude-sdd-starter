@@ -1,0 +1,31 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.p8
+
+# Dependency caches
+node_modules/
+.venv/
+.gradle/
+__pycache__/
+*.pyc
+.build/
+dist/
+build/
+
+# Logs
+*.log
+logs/
