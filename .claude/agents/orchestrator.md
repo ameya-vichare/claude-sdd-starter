@@ -42,8 +42,9 @@ Never start implementation without an approved plan and a spec in `docs/specs/`.
 | Concrete impl of an interface | ✅ Yes, if different modules | feature-builder |
 | Unit tests for a completed impl | ✅ Yes | test-writer |
 | Code review of a completed feature | ✅ Yes | code-reviewer |
-| Refactor pass | ❌ Only after tests pass | refactor-agent |
-| CI fix | ❌ Blocks everything else | ci-fixer |
+| Refactor pass | ❌ Only after code-reviewer approval | refactor-agent |
+| CI fix | ❌ Blocks everything — resolve before proceeding | ci-fixer |
+| Platform/API research | ✅ Yes, in parallel with planning | [lang]-researcher |
 
 ### Step 2 — Dependency order
 ```
@@ -115,6 +116,17 @@ Dependencies (must be done first):
 - The orchestrator is the only entity that integrates branches — subagents commit to their worktree branch only
 - After `code-reviewer` approves: orchestrator raises PR into `main`/`develop` (human dev approves merge)
 
+### Parallel-safe examples
+✅ Safe to run in parallel:
+- `feature-builder` on `UserModule/DataLayer` + `feature-builder` on `ProfileModule/DataLayer` (separate files)
+- `test-writer` for `UserRepository` + `test-writer` for `ProfileRepository`
+- `[lang]-researcher` investigating an API + `architect` writing the HLD diagram
+
+❌ Must be serialised:
+- Any two agents touching the same file (even different lines)
+- Interface definition + its first implementation (definition must merge first)
+- `refactor-agent` + any `feature-builder` on the same module (refactor changes the baseline)
+
 ---
 
 ## Interface Change Protocol (highest risk operation)
@@ -126,20 +138,85 @@ Dependencies (must be done first):
 
 ---
 
+## PM Tool Integration (Linear / Jira)
+
+> **Skip this section if the project has no PM tool configured.**
+
+After a plan is approved, create issues in the PM tool **before spawning any agents**.
+
+### Step A — Create Epic
+
+```
+Create issue:
+  team/project: <configured project ID>
+  title: "[Epic] <feature name>"
+  description: <full plan summary + acceptance criteria from spec>
+  state: Backlog
+  priority: <map from spec — 1=Urgent, 2=High, 3=Normal, 4=Low>
+  assignee: <developer who approved the plan, if known>
+```
+
+Record the returned epic ID.
+
+### Step B — Create Subtasks
+
+For each step in the approved plan, create a subtask linked to the epic:
+
+```
+Create issue:
+  team/project: <configured project ID>
+  title: "<step title>"
+  description: |
+    Layer: <Presentation | Domain | Data | Shared | Core>
+    Files: <files involved>
+    Acceptance criteria:
+    - <specific, verifiable criteria>
+    - Build passes, tests pass
+  state: Backlog
+  parentId: <epic ID from Step A>
+  priority: <inherit from epic>
+  assignee: <developer or leave unassigned for agent work>
+```
+
+### Step C — Set Dependencies
+
+After all subtasks are created, set `blockedBy` relationships:
+- Subtask N that depends on subtask M → mark N as `blockedBy: [M]`
+- Interface/contract tasks block all implementation tasks
+- Implementation tasks block test tasks
+- Test tasks block review tasks
+
+### Step D — Status Transitions
+
+Update PM tool status at each milestone:
+
+| Event | New state | Comment |
+|-------|-----------|---------|
+| Agent starts work | `In Progress` | "Agent starting. Branch: feature/..." |
+| Build verified, tests pass | `Done` | "Completed. Build verified. Coverage: X%" |
+| PR opened | `In Review` | "PR opened: <link>" |
+| Blocked | `Backlog` | "BLOCKED: <reason>. Needs: <what>" |
+| Cancelled | `Cancelled` | "<reason>" |
+
+Record all created issue IDs in `tasks/<feature-name>.md` for reference.
+
+---
+
 ## Task Tracking
 
-After a plan is approved, record the breakdown in `tasks/<feature-name>.md` **before spawning any agents**:
+After creating PM issues (if applicable), also record the breakdown in `tasks/<feature-name>.md` **before spawning any agents**:
 
 ```markdown
 # <Feature Name> — Task Breakdown
 
 ## Epic
 <one-line feature summary>
+PM Issue: <PROJ-XXX or "none">
 
 ## Subtasks
-- [ ] 1. <step title> — <files involved, acceptance criteria>
-- [ ] 2. <step title> — <files involved, acceptance criteria>
-- [ ] 3. <step title> — depends on 1
+- [ ] 1. <step title> — <files involved, acceptance criteria> [PROJ-XXX]
+- [ ] 2. <step title> — <files involved, acceptance criteria> [PROJ-XXX]
+- [ ] 3. <step title> — depends on 1 [PROJ-XXX]
 ...
 ```
 

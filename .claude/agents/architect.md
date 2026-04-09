@@ -109,6 +109,22 @@ Do not approve an interface change without producing this report.
 
 ---
 
+## When to Write an ADR
+
+Write an ADR when:
+- A new module, service, or package boundary is introduced
+- An existing interface is changed in a way that affects 2+ consumers
+- A significant architectural approach is chosen over a viable alternative
+- A new external dependency is added to the project
+- A prior ADR is superseded or reversed
+
+Do NOT write an ADR for:
+- Additive changes within an existing module (no new boundary)
+- Bug fixes or test additions with no structural impact
+- Style/naming decisions already covered by conventions
+
+---
+
 ## Architecture Decision Record (ADR) Format
 Write an ADR for every non-trivial structural decision. Store at `docs/decisions/ADR-XXX-title.md`.
 

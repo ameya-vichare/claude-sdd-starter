@@ -404,7 +404,15 @@ Create/customize files in `.claude/agents/`. Each agent has YAML frontmatter wit
 
 #### orchestrator.md (model: claude-opus-4-6)
 Read existing and adapt:
-- Reference user's PM tool for ticket management (or remove PM sections if none)
+- **PM tool integration** (critical if user has Linear/Jira):
+  - Configure the project/team ID for the PM tool
+  - Epic creation: title, description (plan summary + acceptance criteria), priority, state (Backlog)
+  - Subtask creation: linked to epic via `parentId`, with priority, layer, files, acceptance criteria
+  - Dependency setting: `blockedBy` relationships between subtasks matching the implementation order
+  - Status transitions: Backlog → In Progress → Done/Blocked/Cancelled with comments at each milestone
+  - Assignee mapping if team members are known
+  - Record all issue IDs in task files
+  - If no PM tool → remove PM sections entirely
 - Reference their verification skill for build commands
 - Keep epic decomposition rules, task spec format, parallelism rules
 - Adapt worktree/branch commands for their git workflow
@@ -507,7 +515,9 @@ Sections:
 Read existing and adapt:
 - Enrichment step references the correct skills (architecture-guard, [language]-conventions)
 - Build verification uses the correct commands from [tool]-verification
-- PM tool integration or removal
+- **PM tool integration in A4 (after plan approval)**:
+  - If PM tool configured: create epic → create subtasks with parentId → set blockedBy dependencies → set priority → update status at each milestone
+  - If no PM tool: remove PM references, track only in tasks/ files
 - Route A/B signals adapted if platform warrants it
 
 ### 7b — [pm-tool]-do.md (only if user has Linear/Jira)
@@ -536,7 +546,13 @@ Read the ticket and classify:
    - If found: read and proceed to architect review
    - If not: build spec from ticket description using prd-spec skill, save to `docs/specs/`
 2. Follow Route A flow from /new-feature (architect → plan → implement)
-3. Update Linear ticket status at each milestone
+3. On plan approval: create subtasks in Linear linked to this ticket as parent (`parentId`), with:
+   - One subtask per implementation step
+   - `blockedBy` dependencies matching implementation order
+   - Priority inherited from parent ticket
+   - Assignee if known
+4. Update subtask statuses at each layer milestone (In Progress → Done)
+5. Mark parent ticket `In Review` when PR is opened
 
 ### Bug ticket:
 1. Read bug description and reproduction steps

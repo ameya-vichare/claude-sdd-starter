@@ -57,6 +57,19 @@ All of these must be true for Route B:
 
 **When in doubt, choose Route A.** Over-planning is cheaper than mid-implementation surprises.
 
+### Examples
+
+| Description | Route | Why |
+|---|---|---|
+| Add a "forgot password" flow | A | New screen, new service, new API endpoint |
+| Add a new field to an existing settings form | B | 1 file, purely additive |
+| Integrate a new third-party analytics SDK | A | New module, new interface, DI changes |
+| Fix a typo in an error message | B | 1 file, trivial change |
+| Add pagination to an existing list screen | A | State changes + repository interface change |
+| Add a unit test for an existing method | B | 1 file (test file), no logic change |
+| Refactor auth service to support OAuth | A | Interface changes affect 3+ modules |
+| Rename a constant | B | 1 file, no logic change |
+
 ---
 
 ## Route A — Full Feature
@@ -106,9 +119,18 @@ The plan must cover:
 ### A4 — After Plan Approval
 
 Once the developer approves the plan:
-1. Begin implementation via the approved plan
-2. Track progress in `tasks/todo.md` — check off each subtask as it completes
-3. Run build verification (build → tests → lint) before declaring done
+
+1. **Create PM issues** (if Linear/Jira is configured):
+   - Create a parent epic with the feature name, plan summary, and priority
+   - Create subtasks for each implementation step, linked to the epic via `parentId`
+   - Set `blockedBy` dependencies between subtasks that have ordering constraints
+   - Set priority on each subtask (inherit from epic or adjust per step)
+   - Set assignee if known
+   - Record all issue IDs in `tasks/<feature-name>.md`
+2. Begin implementation via the approved plan
+3. Track progress in `tasks/todo.md` — check off each subtask as it completes
+4. Update PM issue status at each milestone (In Progress / Done / Blocked)
+5. Run build verification (build → tests → lint) before declaring done
 
 ---
 

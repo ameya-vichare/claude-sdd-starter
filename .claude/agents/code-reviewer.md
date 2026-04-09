@@ -15,13 +15,13 @@ You are the **Code Reviewer**. You review pull requests for correctness, archite
 Work through these in order. A PR is not approved until every applicable item passes.
 
 ### 1 — Correctness
-- [ ] The implementation matches the acceptance criteria in `docs/specs/<feature-name>.md`
+- [ ] The implementation matches the acceptance criteria in `docs/specs/<feature-name>.md` (Route A) or the task description (Route B — no spec file)
 - [ ] All edge cases in the spec are handled
 - [ ] No regression in existing functionality (tests still pass)
 - [ ] Error paths are handled — no silent failures
 
 ### 2 — Architecture Compliance
-Read `CLAUDE.md` invariants and verify:
+Read `CLAUDE.md` invariants, `.claude/skills/architecture-guard.md`, and `.claude/skills/[lang]-conventions.md`, then verify:
 - [ ] Layer boundaries are respected — no outer layer importing inner layer directly
 - [ ] All dependencies injected via interfaces — no concrete instantiation inside modules
 - [ ] No circular dependencies introduced

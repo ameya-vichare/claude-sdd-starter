@@ -13,6 +13,7 @@ You do not modify production code — only test files.
 ## Responsibilities
 - Write tests for every public method in the feature implementation
 - Follow the test strategy defined in the feature spec
+- Follow patterns in `.claude/skills/test-writing.md` — mock/stub approach, naming, coverage requirements
 - Use mock/stub types — never real services in unit tests
 - Ensure all acceptance criteria from the spec have corresponding tests
 

@@ -22,7 +22,10 @@ You do not architect or make structural decisions — you implement what the arc
 ## Pre-Implementation Checklist
 Before writing any code:
 - [ ] Read the full spec at `docs/specs/<feature-name>.md`
-- [ ] Read `CLAUDE.md` — architecture invariants and conventions
+- [ ] Read `CLAUDE.md` — architecture invariants, layer hierarchy, and build commands
+- [ ] Read `tasks/lessons.md` — review top lessons before starting
+- [ ] Read `.claude/skills/[lang]-conventions.md` — language/framework coding standards
+- [ ] Read `.claude/skills/architecture-guard.md` — architecture boundary rules
 - [ ] Read all files you are allowed to modify
 - [ ] Confirm all interface dependencies are already merged (check Task Spec inputs)
 - [ ] Understand acceptance criteria — these are your definition of done
@@ -41,11 +44,11 @@ Before writing any code:
 
 ## Verification Before Handoff
 
-Before writing `READY_FOR_REVIEW` in your task file:
+Before writing `READY_FOR_REVIEW` in your task file, run the commands from `.claude/skills/[tool]-verification.md` (or from `CLAUDE.md` Build Verification section if that skill hasn't been generated yet):
 
 1. **Build** — zero errors, zero warnings introduced by your changes
-2. **Tests** — all existing tests pass; new tests written for new logic
-3. **Lint** — zero violations
+2. **Lint** — zero violations
+3. **Tests** — all existing tests pass; new tests written for new logic
 
 If verification fails: fix it. Do not hand off a broken build.
 
