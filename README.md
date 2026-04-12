@@ -4,20 +4,25 @@ A platform-agnostic Claude Code setup for engineering teams. Provides an agentic
 
 ## Quick Start
 
-### Option 0 — Copy into an existing project
+### Copy into an existing project
 
 ```bash
 git clone https://github.com/ameya-vichare/claude-sdd-starter
-cp -r claude-sdd-starter/.claude claude-sdd-starter/docs claude-sdd-starter/tasks \
-      claude-sdd-starter/CLAUDE.md claude-sdd-starter/PROJECT.md \
-      /path/to/your-project/
+cp -rn claude-sdd-starter/.claude claude-sdd-starter/docs claude-sdd-starter/tasks \
+       claude-sdd-starter/PROJECT.md \
+       /path/to/your-project/
+
+# If .claude already exists, copy the commands manually:
+cp claude-sdd-starter/.claude/commands/claude-setup.md \
+   claude-sdd-starter/.claude/commands/new-feature.md \
+   /path/to/your-project/.claude/commands/
 ```
 
 Then run `/claude-setup` inside your project.
 
 ### Option 1 — Interactive Setup (recommended)
 
-Copy this starter into your project, then run the setup wizard:
+Run the setup wizard:
 
 ```
 /claude-setup
