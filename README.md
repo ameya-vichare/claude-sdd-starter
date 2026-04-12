@@ -13,15 +13,13 @@ cp -rn claude-sdd-starter/.claude claude-sdd-starter/docs claude-sdd-starter/tas
        /path/to/your-project/
 ```
 
-If `.claude` already exists, copy the commands manually:
+If `.claude` already exists in your project, copy the commands manually:
 
 ```bash
 cp claude-sdd-starter/.claude/commands/claude-setup.md \
    claude-sdd-starter/.claude/commands/new-feature.md \
    /path/to/your-project/.claude/commands/
 ```
-
-Then run `/claude-setup` inside your project.
 
 ### Option 1 — Interactive Setup (recommended)
 
