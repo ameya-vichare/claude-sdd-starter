@@ -163,8 +163,8 @@ Before `git add`, run `git status` and check:
 
 | Model | When to use | Agents |
 |-------|-------------|--------|
-| `claude-opus-4-6` | Complex planning, architecture decisions, deep research | orchestrator, architect, [lang]-researcher |
-| `claude-sonnet-4-6` | Implementation, reviews, test writing, refactors, CI fixes | feature-builder, code-reviewer, test-writer, refactor-agent, ci-fixer |
+| `claude-opus-4-6` | Complex planning, architecture decisions, deep research | architect |
+| `claude-sonnet-4-6` | Implementation, reviews, test writing, refactors, CI fixes, orchestration, research | orchestrator, feature-builder, code-reviewer, test-writer, refactor-agent, ci-fixer, [lang]-researcher |
 
 ## Thinking Modes
 

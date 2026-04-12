@@ -124,9 +124,9 @@ For small changes: ≤2 files, additive, obvious path, <30 min.
 
 | Agent | Model | Role |
 |-------|-------|------|
-| orchestrator | claude-opus-4-6 | Coordinates agents, never writes code |
+| orchestrator | claude-sonnet-4-6 | Coordinates agents, never writes code |
 | architect | claude-opus-4-6 | Evaluates structure, writes ADRs |
-| [lang]-researcher | claude-opus-4-6 | Platform research via Context7 |
+| [lang]-researcher | claude-sonnet-4-6 | Platform research via Context7 |
 | feature-builder | claude-sonnet-4-6 | Writes production code |
 | code-reviewer | claude-sonnet-4-6 | Reviews PRs |
 | test-writer | claude-sonnet-4-6 | Writes tests |

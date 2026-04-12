@@ -402,7 +402,7 @@ Create/customize files in `.claude/agents/`. Each agent has YAML frontmatter wit
 
 ### Core agents (customize existing 5):
 
-#### orchestrator.md (model: claude-opus-4-6)
+#### orchestrator.md (model: claude-sonnet-4-6)
 Read existing and adapt:
 - **PM tool integration** (critical if user has Linear/Jira):
   - Configure the project/team ID for the PM tool
@@ -478,10 +478,10 @@ Sections:
 - **Elegance test**: "Knowing everything I know now, is this what I would write from scratch?"
 - **Verification**: All tests green, lint clean, coverage not dropped, diff review confirms no behavior change
 
-#### [language]-researcher.md (model: claude-opus-4-6)
+#### [language]-researcher.md (model: claude-sonnet-4-6)
 ```yaml
 ---
-model: claude-opus-4-6
+model: claude-sonnet-4-6
 ---
 ```
 Sections:
@@ -491,10 +491,10 @@ Sections:
 - **Project constraints**: List specific constraints (min OS/language version, no specific libraries without review, framework preferences)
 - **Never**: Write production code, recommend patterns that violate architecture-guard, recommend deprecated APIs
 
-#### old-app-researcher.md (model: claude-opus-4-6) — ONLY if user said they're rebuilding
+#### old-app-researcher.md (model: claude-sonnet-4-6) — ONLY if user said they're rebuilding
 ```yaml
 ---
-model: claude-opus-4-6
+model: claude-sonnet-4-6
 ---
 ```
 Sections:
@@ -627,15 +627,15 @@ Skills:
   - pr-checklist.md (customized)
 
 Agents:
-  - orchestrator.md (opus) — coordinates all agents
+  - orchestrator.md (sonnet) — coordinates all agents
   - architect.md (opus) — evaluates structure, writes ADRs
   - feature-builder.md (sonnet) — writes production code
   - code-reviewer.md (sonnet) — reviews PRs
   - test-writer.md (sonnet) — writes tests
   - ci-fixer.md (sonnet) — fixes build failures
   - refactor-agent.md (sonnet) — improves code quality
-  - [language]-researcher.md (opus) — platform research
-  - old-app-researcher.md (opus) — legacy codebase research (if applicable)
+  - [language]-researcher.md (sonnet) — platform research
+  - old-app-researcher.md (sonnet) — legacy codebase research (if applicable)
 
 Commands:
   /new-feature         — start any new feature
